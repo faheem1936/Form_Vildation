@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Mini Project</title>
+
+	<!-- jQuery CDN -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+	<style>
+		body{
+			font-family: Calibri;
+		}
+		#wrapper{
+			width: 500px;
+			margin: 50px auto;
+		}
+		label{
+			font-size: 18px;
+			font-weight: bold;
+			float: left;
+			width: 150px;
+		}
+		input{
+			padding: 10px;
+			width: 250px;
+			border-radius: 5px;
+			border: 1px solid aquamarine;
+		}
+		p{
+			clear: both;
+			margin-bottom: 15px;
+		}
+		#submit{
+			display: block;
+			margin: 20px auto;
+			width: 120px;
+			cursor: pointer;
+		}
+		#submit:hover{
+			background-color: lightgray;
+		}
+		.message{
+			text-align: center;
+			font-size: 16px;
+			font-weight: bold;
+			display: none;
+			margin-top: 15px;
+		}
+		.error{
+			color: red;
+		}
+		.success{
+			color: green;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		<p>
+			<label>Email</label>
+			<input type="text" id="email" placeholder="example@ex.com">
+		</p>
+
+		<p>
+			<label>Phone</label>
+			<input type="text" id="phone" placeholder="03001234567">
+		</p>
+
+		<p>
+			<label>Password</label>
+			<input type="password" id="password">
+		</p>
+
+		<p>
+			<label>Confirm Password</label>
+			<input type="password" id="passwordConfirm">
+		</p>
+
+		<p>
+			<input type="button" value="Submit" id="submit">
+		</p>
+
+		<div class="message" id="msg"></div>
+
+	</div>
+
+	<script>
+	$(document).ready(function(){
+
+		function validateEmail(email){
+			let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			return regex.test(email);
+		}
+
+		$("#submit").click(function(){
+
+			let email = $("#email").val();
+			let phone = $("#phone").val();
+			let password = $("#password").val();
+			let confirmPassword = $("#passwordConfirm").val();
+
+			let msg = $("#msg");
+			msg.removeClass("error success").hide();
+
+			if(email === ""){
+				msg.addClass("error").text("Email required").show();
+				return;
+			}
+
+			if(!validateEmail(email)){
+				msg.addClass("error").text("Invalid email format").show();
+				return;
+			}
+
+			if(phone === ""){
+				msg.addClass("error").text("Phone number required").show();
+				return;
+			}
+
+			if(password === ""){
+				msg.addClass("error").text("Password required").show();
+				return;
+			}
+
+			if(password !== confirmPassword){
+				msg.addClass("error").text("Passwords do not match").show();
+				return;
+			}
+
+			msg.addClass("success").text("Form submitted successfully ✅").show();
+
+		});
+	});
+	</script>
+
+</body>
+</html>
